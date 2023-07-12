@@ -18,17 +18,18 @@ namespace bunny {
 
 	bool getFileSize(const std::filesystem::path& path, size_t& size) {
 		std::error_code ec;
-		std::filesystem::file_size(path);
+		
+		size = std::filesystem::file_size(path,ec);
 
 		return ec.value() == 0;
 	}
 
-	bool readFile(const std::filesystem::path& path, std::string buffer) {
+	bool readFile(const std::filesystem::path& path, std::string& buffer) {
 		if (!fileExists(path)) return false;
 
 		size_t size;
 
-		if (!getFileSize(path, size)) return false;
+		if (!getFileSize(path, size)) return false; 
 
 		buffer.resize(size);
 
